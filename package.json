@@ -1,0 +1,35 @@
+{
+  "name": "rezen-smart-travel-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "build:release": "bash scripts/build-release.sh",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit && npm --prefix server run typecheck && npm --prefix admin run typecheck",
+    "dev:server": "npm --prefix server run dev",
+    "dev:admin": "npm --prefix admin run dev",
+    "build:server": "npm --prefix server run build",
+    "start:server": "cd server && node dist/index.js",
+    "seed": "npm --prefix server run seed",
+    "extract-seed": "npm --prefix server run extract-seed"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

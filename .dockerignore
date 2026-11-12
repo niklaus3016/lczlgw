@@ -1,0 +1,24 @@
+# 依赖与构建产物：镜像内会重新安装与编译
+node_modules
+**/node_modules
+dist
+admin/dist
+server/dist
+server/public
+
+# 本地运行数据：数据库与上传图片属于持久卷，不进入镜像；视频文件需进入镜像作为启动引导资源
+server/data/uploads
+server/data/*.db
+server/data/*.db-journal
+server/data/*.db-wal
+server/data/*.db-shm
+
+# 开发与文档文件
+.git
+.vscode
+docs
+**/*.log
+**/.DS_Store
+.env
+.env.local
+.env.*.local

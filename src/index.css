@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: #111111;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- 移动端体验修正 ---- */
+@media (max-width: 767px) {
+  /* 固定顶栏 64px：锚点跳转时让目标区块落在顶栏下方，而不是被遮住 */
+  html {
+    scroll-padding-top: 64px;
+  }
+
+  /* iOS Safari 聚焦输入框时，字号小于 16px 会强制放大页面；统一抬到 16px 避免跳动 */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+@keyframes scrollDotBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateY(-9px);
+    opacity: 0.45;
+  }
+}
+
+.animate-scroll-dot {
+  animation: scrollDotBounce 1.8s ease-in-out infinite;
+}
+
+/* ---- 弹窗/卡片进场动画（多处组件引用，此前未定义导致动画失效） ---- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in,
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out both;
+}
+
+/* ---- 内页 Banner 文字入场：标题上浮淡入，副标题延迟跟随 ---- */
+@keyframes heroTextRise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-enter {
+  animation: heroTextRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-sub {
+  animation: heroTextRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+/* ---- 滚动入场（Reveal 组件）：淡入上移，配合 transitionDelay 错落 ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- 播放键呼吸 ---- */
+@keyframes playBreath {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-play-breath {
+  animation: playBreath 2.6s ease-in-out infinite;
+}
+
+/* ---- 罗盘节点入场：仅淡入，backwards 填充避免覆盖 CSS 透明度/位移 ---- */
+@keyframes compassFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.compass-enter {
+  animation: compassFade 0.7s ease-out backwards;
+}
+
+/* ---- 首页 Hero 轮播文案：切换时上浮淡入 + 轻微去模糊，副标题延迟跟随 ---- */
+@keyframes heroSlideText {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.hero-slide-title {
+  animation: heroSlideText 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.hero-slide-sub {
+  animation: heroSlideText 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- 横向筛选条隐藏滚动条 ---- */
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ---- 顶栏「合作咨询」按钮的呼吸动效：轻微缩放 + 光影强弱，不影响布局占位 ---- */
+@keyframes consultBreath {
+  0%,
+  100% {
+    scale: 1;
+    box-shadow: 0 2px 8px rgba(240, 154, 38, 0.25), 0 0 0 0 rgba(244, 169, 63, 0.2);
+    filter: brightness(1);
+  }
+  50% {
+    scale: 1.025;
+    box-shadow: 0 4px 16px rgba(240, 154, 38, 0.4), 0 0 0 5px rgba(244, 169, 63, 0.07);
+    filter: brightness(1.06);
+  }
+}
+
+.animate-consult-breath {
+  animation: consultBreath 3.8s ease-in-out infinite;
+}
+
+/* ---- 品牌 Logo 墙无缝横向滚动 ---- */
+@keyframes marqueeX {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-x {
+  animation: marqueeX 40s linear infinite;
+}
+
+/* Hover 暂停无缝滚动 */
+.group:hover .animate-marquee-x,
+.animate-marquee-x:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fadeIn,
+  .animate-scale-up,
+  .animate-scroll-dot,
+  .animate-consult-breath,
+  .animate-marquee-x {
+    animation: none;
+  }
+}

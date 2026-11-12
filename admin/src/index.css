@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   富文本编辑器（wangEditor）样式修正
+   Tailwind preflight 会把 h1~h5 重置为继承字号/字重，导致工具栏选择「标题」
+   后文字不变大不加粗；wangEditor 又把图片设为 display:inline，插入图片会和
+   正文并排。这里在编辑器作用域内恢复标题层级样式，并让图片独占一行。
+   ========================================================================== */
+.news-editor .w-e-text-container [data-slate-editor] h1 {
+  font-size: 2em;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 20px 0;
+}
+.news-editor .w-e-text-container [data-slate-editor] h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 20px 0;
+}
+.news-editor .w-e-text-container [data-slate-editor] h3 {
+  font-size: 1.25em;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 20px 0;
+}
+.news-editor .w-e-text-container [data-slate-editor] h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 18px 0;
+}
+.news-editor .w-e-text-container [data-slate-editor] h5 {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 16px 0;
+}
+.news-editor .w-e-text-container [data-slate-editor] img {
+  display: block !important;
+  margin: 14px auto !important;
+  max-width: 100%;
+}
